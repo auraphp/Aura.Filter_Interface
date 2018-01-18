@@ -9,12 +9,12 @@
         "validator",
         "validation"
     ],
-    "homepage": "https://github.com/auraphp/Aura.Filter",
+    "homepage": "https://github.com/auraphp/Aura.Filter_Interface",
     "license": "MIT",
     "authors": [
         {
-            "name": "Aura.Filter Contributors",
-            "homepage": "https://github.com/auraphp/Aura.Filter/contributors"
+            "name": "Aura.Filter_Interface Contributors",
+            "homepage": "https://github.com/auraphp/Aura.Filter_Interface/contributors"
         }
     ],
     "require": {
