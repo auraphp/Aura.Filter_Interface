@@ -2,12 +2,21 @@
 /**
  *
  * This file is part of Aura for PHP.
+ * 
+ * @package Aura.Filter_Interface
  *
  * @license http://opensource.org/licenses/MIT-license.php MIT
  *
  */
 namespace Aura\Filter_Interface;
 
+/**
+ *
+ * Failure collection
+ *
+ * @package Aura.Filter_Interface
+ *
+ */
 interface FailureCollectionInterface
 {
     /**
