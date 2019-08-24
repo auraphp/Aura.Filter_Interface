@@ -1,6 +1,6 @@
 # Aura.Filter_Interface
 
-An interface package for wrapping different implementations of validation and sanitizing system.
+An interface package for wrapping different implementations of validation and sanitizing systems.
 
 ## Installation and Autoloading
 
