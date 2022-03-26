@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  *
  * This file is part of the Aura project for PHP.
@@ -24,18 +26,8 @@ interface FilterInterface
      * Filter (sanitize and validate) the data.
      *
      * @param array|object $values The values to be filtered.
-     *
-     * @return bool True if all rules passed; false if one or more failed.
-     *
      */
-    public function apply(&$values);
+    public function apply(&$values): bool;
 
-    /**
-     *
-     * Returns the failures.
-     *
-     * @return FailureCollectionInterface
-     *
-     */
-    public function getFailures();
+    public function getFailures(): FailureCollectionInterface;
 }
