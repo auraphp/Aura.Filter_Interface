@@ -1,8 +1,10 @@
 <?php
+declare(strict_types=1);
+
 /**
  *
  * This file is part of Aura for PHP.
- * 
+ *
  * @package Aura.Filter_Interface
  *
  * @license http://opensource.org/licenses/MIT-license.php MIT
@@ -20,44 +22,43 @@ namespace Aura\Filter_Interface;
 interface FailureCollectionInterface
 {
     /**
-     *
      * Is the failure collection empty?
-     *
-     * @return bool
-     *
      */
-    public function isEmpty();
+    public function isEmpty(): bool;
 
     /**
      *
-     * Adds an additional failure message / messages on a field.
+     * Adds an additional failure on a field.
      *
      * @param string $field The field that failed.
      *
-     * @param string|array $messages The failure messages.
+     * @param string $message The failure message.
      *
-     * @return void
+     * @param array $args The arguments passed to the rule specification.
      *
      */
-    public function addMessagesForField($field, $messages);
+    public function add(string $field, string $message, array $args = array()): FailureInterface;
 
     /**
      *
+     * Set a failure on a field, removing all previous failures.
+     *
+     * @param string $field The field that failed.
+     *
+     * @param string $message The failure message.
+     *
+     * @param array $args The arguments passed to the rule specification.
+     *
+     */
+    public function set(string $field, string $message, array $args = array()): FailureInterface;
+
+    /**
      * Returns all failure messages for one field.
-     *
-     * @param string $field The field name.
-     *
-     * @return array
-     *
      */
-    public function getMessagesForField($field);
+    public function getMessagesForField(string $field): array;
 
     /**
-     *
      * Returns all failure messages for all fields.
-     *
-     * @return array
-     *
      */
-    public function getMessages();
+    public function getMessages(): array;
 }
