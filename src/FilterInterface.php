@@ -14,7 +14,7 @@ namespace Aura\Filter_Interface;
 
 /**
  *
- * A filter interface
+ * A filter interface.
  *
  * @package Aura.Filter_Interface
  *
@@ -22,12 +22,10 @@ namespace Aura\Filter_Interface;
 interface FilterInterface
 {
     /**
+     * Apply the filter. Never mutates $values.
+     * Returns a result containing the (sanitized) values and any failures.
      *
-     * Filter (sanitize and validate) the data.
-     *
-     * @param array|object $values The values to be filtered.
+     * @param array|object $values The data to filter.
      */
-    public function apply(&$values): bool;
-
-    public function getFailures(): FailureCollectionInterface;
+    public function apply(array|object $values): FilterResultInterface;
 }
