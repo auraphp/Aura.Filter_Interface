@@ -1,7 +1,7 @@
 {
     "name": "aura/filter-interface",
     "type": "library",
-    "description": "An interface package for validation and sanitizing library",
+    "description": "Interfaces and shared value objects for validation and sanitization libraries",
     "keywords": [
         "filter",
         "validate",
@@ -18,7 +18,7 @@
         }
     ],
     "require": {
-        "php": "^7.2 || ^8.0"
+        "php": "^8.4"
     },
     "autoload": {
         "psr-4": {

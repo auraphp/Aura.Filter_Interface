@@ -14,51 +14,31 @@ namespace Aura\Filter_Interface;
 
 /**
  *
- * Failure collection
+ * Write side of a failure collection — used internally by filter implementations
+ * while building the collection during a filter run.
+ *
+ * Consumers are always typed against FailuresInterface (read-only).
  *
  * @package Aura.Filter_Interface
  *
  */
-interface FailureCollectionInterface
+interface FailureCollectionInterface extends FailuresInterface
 {
     /**
-     * Is the failure collection empty?
-     */
-    public function isEmpty(): bool;
-
-    /**
-     *
      * Adds an additional failure on a field.
      *
-     * @param string $field The field that failed.
-     *
+     * @param string $field   The field that failed.
      * @param string $message The failure message.
-     *
-     * @param array $args The arguments passed to the rule specification.
-     *
+     * @param array  $args    Arguments passed to the rule specification.
      */
-    public function add(string $field, string $message, array $args = array()): FailureInterface;
+    public function add(string $field, string $message, array $args = []): FailureInterface;
 
     /**
+     * Sets a failure on a field, replacing all previous failures for that field.
      *
-     * Set a failure on a field, removing all previous failures.
-     *
-     * @param string $field The field that failed.
-     *
+     * @param string $field   The field that failed.
      * @param string $message The failure message.
-     *
-     * @param array $args The arguments passed to the rule specification.
-     *
+     * @param array  $args    Arguments passed to the rule specification.
      */
-    public function set(string $field, string $message, array $args = array()): FailureInterface;
-
-    /**
-     * Returns all failure messages for one field.
-     */
-    public function getMessagesForField(string $field): array;
-
-    /**
-     * Returns all failure messages for all fields.
-     */
-    public function getMessages(): array;
+    public function set(string $field, string $message, array $args = []): FailureInterface;
 }
