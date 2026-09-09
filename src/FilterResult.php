@@ -18,7 +18,12 @@ namespace Aura\Filter_Interface;
  * Shared concrete implementation used by aura/filter and aura/input.
  *
  * Immutability comes from the readonly promoted properties, not from the class
- * being final; subclasses can add behavior but cannot alter the recorded result.
+ * being final: they are private and readonly, so a subclass can neither write
+ * nor redeclare the recorded values. A subclass may still override the
+ * accessors and report something else — as may any other implementation of
+ * FilterResultInterface, which is what consumers are typed against. Callers
+ * therefore rely on the interface, not on this class being faithful.
+ *
  * Implementations that need a different result entirely should implement
  * FilterResultInterface rather than extend this class.
  *
@@ -55,7 +60,10 @@ class FilterResult implements FilterResultInterface
      *
      * If no sanitize rules ran, this is identical to the value passed to apply().
      * The type mirrors the input: array in → array out, object in → object out.
-     * The caller's original is never mutated.
+     *
+     * Read filtered data from here rather than from the variable passed to
+     * apply(): whether that subject is also modified in place is left to the
+     * implementation.
      *
      * @return array|object
      */

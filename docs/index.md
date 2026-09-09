@@ -114,7 +114,7 @@ the name to reach for when that path is nested.
 
 Failures from nested subjects are keyed by their full path, joined with `.`:
 
-```
+```text
 address.city
 phone_numbers.2.number
 ```
