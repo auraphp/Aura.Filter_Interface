@@ -41,8 +41,8 @@ Alternatively, [download a release][], or clone this repository, then map the
 
 ## Dependencies
 
-This package requires PHP 5.3 or later. We recommend using the latest available
-version of PHP as a matter of principle.
+This package requires PHP 8.4 or later, and has no other dependencies. We
+recommend using the latest available version of PHP as a matter of principle.
 
 ## Quality
 
