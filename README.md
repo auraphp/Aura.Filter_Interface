@@ -8,28 +8,47 @@ This package defines contracts. It ships exactly one concrete class,
 `FilterResult`, and that is a deliberate, bounded exception rather than a
 precedent.
 
-`FilterInterface::apply()` is declared to return a `FilterResultInterface`, so
-every implementation must return *something*. `FilterResult` is a tuple — three
-readonly properties, three accessors, no decisions — and there is no such thing
-as a legitimately different implementation of it. Shipping it here does not
-prescribe how anyone filters; it only names the shape of a value the interface
-already requires. The alternative was an identical twenty-line class duplicated
-in every implementing package.
+The boundary is set by [Aura's core principles][about]. The base rule is that
+library packages are "decoupled, not only from any particular framework, but
+also from each other". Aura 3.x relaxes it only so far:
 
-Anything with real behavior stays out. Concrete `Failure` and
-`FailureCollection` classes in particular belong to the implementing packages:
-`aura/filter` stores `FailureInterface` objects and retains rule arguments,
-while `aura/input`'s closure-based filter stores plain message strings and has
-no arguments to record. That divergence is genuine, so those classes are not
-shared.
+> Under the relaxed rule, an Aura library may depend on an interface package,
+> but not on an implementation.
 
-The test for adding another concrete class here is therefore: **can it vary?**
-If two reasonable implementations could differ, it does not belong in this
-package.
+That exception exists to preserve the decoupling, not to create a back door
+around it. So the test for shipping a concrete class here is **does it carry
+behavior?** A tuple carries none. A data structure with algorithms in it is an
+implementation, and libraries may not depend on one — no matter which package
+it is published from.
+
+`FilterResult` passes. `FilterInterface::apply()` is declared to return a
+`FilterResultInterface`, so every implementation must return *something*, and
+that something is three readonly properties behind three accessors, with no
+branching and nothing to decide. Shipping it prescribes nothing about how
+anyone filters; it only names the shape of a value the interface already
+requires.
+
+`FailureCollection` does not pass, and this is worth stating plainly because
+the two implementations in `aura/filter` and `aura/input` are very nearly
+identical — near enough that sharing them looks like obvious cleanup. It is
+not. Such a class holds real logic: dot-notation path splitting, nested-message
+construction, storage decisions. `getNestedMessages()` does not describe a
+shape, it *decides* one. Publishing that here would make both packages depend
+on a shared implementation of failure storage, coupling them to each other's
+semantics through this package — precisely the coupling the base rule exists to
+prevent. It would also nudge every third-party implementation toward the same
+class, which is how an interface package quietly becomes the framework that
+[3.x set out not to provide][about].
+
+Concrete `Failure` classes stay with the implementing packages for the weaker
+but sufficient reason that nothing forces them here: implementations mint their
+own failures and return them behind `FailureInterface`.
 
 Note also that `FilterResult` is not `final`. Its immutability comes from
 `readonly` properties, and callers wanting different behavior should implement
 `FilterResultInterface` directly.
+
+[about]: https://github.com/auraphp/auraphp.github.io/blob/master/about.md
 
 ## Installation and Autoloading
 
