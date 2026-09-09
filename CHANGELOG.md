@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## 6.0.0-beta1
+## 7.0.0
 
 ### Breaking Changes
 
