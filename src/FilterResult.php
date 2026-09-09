@@ -17,10 +17,15 @@ namespace Aura\Filter_Interface;
  * Immutable value object returned by FilterInterface::apply().
  * Shared concrete implementation used by aura/filter and aura/input.
  *
+ * Immutability comes from the readonly promoted properties, not from the class
+ * being final; subclasses can add behavior but cannot alter the recorded result.
+ * Implementations that need a different result entirely should implement
+ * FilterResultInterface rather than extend this class.
+ *
  * @package Aura.Filter_Interface
  *
  */
-final class FilterResult implements FilterResultInterface
+class FilterResult implements FilterResultInterface
 {
     /**
      * Constructor.

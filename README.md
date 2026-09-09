@@ -2,6 +2,35 @@
 
 An interface package for wrapping different implementations of validation and sanitizing systems.
 
+## Package Scope
+
+This package defines contracts. It ships exactly one concrete class,
+`FilterResult`, and that is a deliberate, bounded exception rather than a
+precedent.
+
+`FilterInterface::apply()` is declared to return a `FilterResultInterface`, so
+every implementation must return *something*. `FilterResult` is a tuple — three
+readonly properties, three accessors, no decisions — and there is no such thing
+as a legitimately different implementation of it. Shipping it here does not
+prescribe how anyone filters; it only names the shape of a value the interface
+already requires. The alternative was an identical twenty-line class duplicated
+in every implementing package.
+
+Anything with real behavior stays out. Concrete `Failure` and
+`FailureCollection` classes in particular belong to the implementing packages:
+`aura/filter` stores `FailureInterface` objects and retains rule arguments,
+while `aura/input`'s closure-based filter stores plain message strings and has
+no arguments to record. That divergence is genuine, so those classes are not
+shared.
+
+The test for adding another concrete class here is therefore: **can it vary?**
+If two reasonable implementations could differ, it does not belong in this
+package.
+
+Note also that `FilterResult` is not `final`. Its immutability comes from
+`readonly` properties, and callers wanting different behavior should implement
+`FilterResultInterface` directly.
+
 ## Installation and Autoloading
 
 This package is installable and PSR-4 autoloadable via Composer as
