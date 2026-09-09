@@ -30,7 +30,10 @@ interface FilterResultInterface
     /**
      * The subject after sanitization rules have been applied.
      * If no sanitize rules ran, this is identical to the input.
-     * The original passed to apply() is never mutated.
+     *
+     * Read filtered data from here rather than from the variable passed to
+     * apply(): whether that subject is also modified in place is left to the
+     * implementation.
      */
     public function getValues(): array|object;
 
